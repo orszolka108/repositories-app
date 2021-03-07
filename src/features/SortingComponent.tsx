@@ -12,7 +12,7 @@ export const SortingComponent = () => {
 
   return (
     <>
-      <button onClick={handleClick}>{getSortingIcon(sort)}</button>{' '}
+      <button onClick={handleClick}>{getSortingIcon(sort)}</button>
     </>
   );
 };
