@@ -1,20 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { RepositoriesListProps, DropdownOption } from '../types';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  RepositoriesListProps,
+  DropdownOption,
+  Repository,
+} from '../types';
 import { LanguageDropdown } from './LanguageDropdown';
+import { SortingComponent } from './SortingComponent';
 import {
   getLanguagesOptions,
   displayRepositoriesList,
   filterRepositoriesByLanguage,
+  sortRepositoriesByStars,
 } from '../utils/helpers';
 import { RepositoriesTableContext } from '../context/RepositoriesTableContext';
 
 export const RepositoriesTable = (props: RepositoriesListProps) => {
   const [options, setOptions] = useState<DropdownOption[]>([]);
   const [language, setLanguage] = useState('All');
-  const [repositoriesArray, setRepositories] = useState<any[]>([]);
+  const [repositoriesArray, setRepositories] = useState<
+    Repository[] | undefined
+  >([]);
+  const [sort, setSort] = useState<any>(2);
+  const initialRender = useRef(true);
 
   const { repositories } = props;
 
+  const selectSort = (sort: number) => {
+    setSort(sort);
+  };
+
+  const selectLanguage = (language: string) => {
+    setLanguage(language);
+  };
   useEffect(() => {
     setRepositories(repositories);
     return () => {};
@@ -34,14 +51,29 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
     setRepositories(filteredRepositories);
   }, [language]);
 
-  const selectLanguage = (language: string) => {
-    setLanguage(language);
-  };
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      const sortedRepositories = sortRepositoriesByStars(
+        repositoriesArray,
+        sort,
+      );
+      setRepositories(sortedRepositories);
+    }
+  }, [sort]);
+
   return (
     <RepositoriesTableContext.Provider
-      value={{ language, selectLanguage }}
+      value={{
+        language,
+        selectLanguage,
+        sort,
+        selectSort,
+      }}
     >
       <div className="repositories-table">
+        <SortingComponent />
         <LanguageDropdown dropdownOptions={options} />
         <table>
           <thead>

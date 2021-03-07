@@ -1,6 +1,8 @@
 import { Repository, DropdownOption } from '../types';
 import ALL_OPTIONS from '../utils/consts';
 
+// RepositoriesTable fn
+
 export const filterRepositoriesByLanguage = (
   repositories: Repository[],
   language: string | undefined,
@@ -59,3 +61,48 @@ export const displayRepositoriesList = (repositories: Repository[]) =>
       </tr>
     );
   });
+
+// SortingComponent fn
+
+export const getSortingIcon = (order: number) => {
+  console.log(order);
+
+  switch (order) {
+    case 0:
+      return 'Asc';
+    case 1:
+      return 'Desc';
+    case 2:
+      return 'Sort';
+  }
+};
+const sortTypes: any = {
+  0: {
+    class: 'sort-up',
+    fn: (a: Repository, b: Repository) => a.stars - b.stars,
+  },
+  1: {
+    class: 'sort-down',
+    fn: (a: Repository, b: Repository) => b.stars - a.stars,
+  },
+  2: {
+    class: 'sort-down',
+    fn: (a: Repository, b: Repository) => a,
+  },
+};
+
+export const sortRepositoriesByStars = (
+  repositories: any,
+  sort: number,
+) => {
+  return repositories.sort(sortTypes[sort].fn);
+};
+
+export const setNextSort = (sort: number) => {
+  let nextSort;
+  if (sort === 0) nextSort = 1;
+  else if (sort === 1) nextSort = 2;
+  else if (sort === 2) nextSort = 0;
+
+  return nextSort;
+};
