@@ -6,7 +6,6 @@ export const SortingComponent = () => {
   const { sort, selectSort } = useContext(RepositoriesTableContext);
 
   const handleClick = () => {
-    console.log('naClicku', sort);
     const nextSort = setNextSort(sort);
     selectSort(nextSort as number);
   };

@@ -65,8 +65,6 @@ export const displayRepositoriesList = (repositories: Repository[]) =>
 // SortingComponent fn
 
 export const getSortingIcon = (order: number) => {
-  console.log(order);
-
   switch (order) {
     case 0:
       return 'Asc';
