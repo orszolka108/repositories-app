@@ -6,6 +6,7 @@ import {
 } from '../types';
 import { LanguageDropdown } from './LanguageDropdown';
 import { SortingComponent } from './SortingComponent';
+import { TimeRangeCheckboxes } from './TimeRangeCheckboxes';
 import {
   getLanguagesOptions,
   displayRepositoriesList,
@@ -73,8 +74,9 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
       }}
     >
       <div className="repositories-table">
-        <SortingComponent />
+        <TimeRangeCheckboxes />
         <LanguageDropdown dropdownOptions={options} />
+        <SortingComponent />
         <table>
           <thead>
             <tr>
