@@ -48,7 +48,7 @@ export const getLanguagesOptions = (repositories: Repository[]) => {
   return languagesWithAllOption;
 };
 
-// component test covers this fn
+// RepositoriesTable component test covers this fn
 export const displayRepositoriesList = (repositories: Repository[]) =>
   repositories.map((repository: Repository, index: number) => {
     return (
