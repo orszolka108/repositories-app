@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import { RepositoriesTable } from '../RepositoriesTable';
-import mockedResponse from '../../mock/response.js';
+import { mockedResponse } from '../../mock/response.js';
 
 afterEach(cleanup);
 

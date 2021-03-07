@@ -21,11 +21,9 @@ export const LanguageDropdown = (props: DropdownProps) => {
         dropdownOptions.map(
           (option: DropdownOption, index: number) => {
             return (
-              <>
-                <option key={`option-${index}`} value={option.value}>
-                  {option.label}
-                </option>
-              </>
+              <option key={`option-${index}`} value={option.value}>
+                {option.label}
+              </option>
             );
           },
         )}

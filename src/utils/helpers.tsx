@@ -1,23 +1,19 @@
-import React from 'react';
 import { Repository, DropdownOption } from '../types';
 import ALL_OPTIONS from '../utils/consts';
 
-// TODO add tests covering helpers fn
-
 export const filterRepositoriesByLanguage = (
   repositories: Repository[],
-  language: string,
+  language: string | undefined,
 ): any => {
-  if (language === 'All') {
+  if (language === ALL_OPTIONS || language === undefined) {
     return repositories;
   }
   return repositories.filter((item) =>
     language.includes(item.language),
   );
 };
-
-const removeDuplicates = (options: any[]) => {
-  return options.reduce((unique, o) => {
+export const removeDuplicates = (options: DropdownOption[]) =>
+  options.reduce((unique: DropdownOption[], o: DropdownOption) => {
     if (
       !unique.some(
         (obj: any) => obj.label === o.label && obj.value === o.value,
@@ -27,9 +23,8 @@ const removeDuplicates = (options: any[]) => {
     }
     return unique;
   }, []);
-};
 
-const addAllOption = (options: DropdownOption[]) => {
+export const addAllOption = (options: DropdownOption[]) => {
   return [
     {
       label: ALL_OPTIONS,
@@ -53,6 +48,7 @@ export const getLanguagesOptions = (repositories: Repository[]) => {
   return languagesWithAllOption;
 };
 
+// component test covers this fn
 export const displayRepositoriesList = (repositories: Repository[]) =>
   repositories.map((repository: Repository, index: number) => {
     return (
