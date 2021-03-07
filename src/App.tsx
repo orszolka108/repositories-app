@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
-import { mockedResponse } from './mock/response.js';
 import { RepositoriesTable } from './features/RepositoriesTable';
 
-function App() {
+const App = () => {
+  const [repositories, setRepositories] = useState([]);
+
+  const url = 'http://127.0.0.1:8000/repositories';
+  useEffect(() => {
+    axios(url).then(res => setRepositories(res.data));
+  }, []);
+
   return (
     <div className="App">
-      <RepositoriesTable repositories={mockedResponse} />
+      <RepositoriesTable repositories={repositories} />
     </div>
   );
-}
+};
 
 export default App;
