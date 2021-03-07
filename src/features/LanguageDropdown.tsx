@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { DropdownProps, DropdownOption } from '../types';
+import { RepositoriesTableContext } from '../context/RepositoriesTableContext';
 
 export const LanguageDropdown = (props: DropdownProps) => {
   const { dropdownOptions } = props;
 
-  const [language, setLanguage] = useState('');
+  const { language, selectLanguage } = useContext(
+    RepositoriesTableContext,
+  );
 
   const handleSelect = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    setLanguage(event.target.value);
+    selectLanguage(event.target.value);
   };
+
   return (
     <select data-testid="language-select" onChange={handleSelect}>
       {dropdownOptions &&
