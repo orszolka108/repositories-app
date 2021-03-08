@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export const ApiCallParameters = createContext({
+export const SinceContext = createContext({
   since: {},
   selectSince: (since: any) => {},
 });

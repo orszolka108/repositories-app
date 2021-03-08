@@ -14,6 +14,7 @@ import {
   sortRepositoriesByStars,
 } from '../utils/helpers';
 import { RepositoriesTableContext } from '../context/RepositoriesTableContext';
+import { LanguageContext } from '../context/LanguageContext';
 
 export const RepositoriesTable = (props: RepositoriesListProps) => {
   const [options, setOptions] = useState<DropdownOption[]>([]);
@@ -67,30 +68,35 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
   return (
     <RepositoriesTableContext.Provider
       value={{
-        language,
-        selectLanguage,
         sort,
         selectSort,
       }}
     >
-      <div className="repositories-table">
-        <TimeRangeCheckboxes />
-        <LanguageDropdown dropdownOptions={options} />
-        <SortingComponent />
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Stars</th>
-              <th>Language</th>
-            </tr>
-          </thead>
-          <tbody>
-            {repositoriesArray &&
-              displayRepositoriesList(repositoriesArray)}
-          </tbody>
-        </table>
-      </div>
+      <LanguageContext.Provider
+        value={{
+          language,
+          selectLanguage,
+        }}
+      >
+        <div className="repositories-table">
+          <TimeRangeCheckboxes />
+          <LanguageDropdown dropdownOptions={options} />
+          <SortingComponent />
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Stars</th>
+                <th>Language</th>
+              </tr>
+            </thead>
+            <tbody>
+              {repositoriesArray &&
+                displayRepositoriesList(repositoriesArray)}
+            </tbody>
+          </table>
+        </div>
+      </LanguageContext.Provider>
     </RepositoriesTableContext.Provider>
   );
 };

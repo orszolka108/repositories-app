@@ -1,34 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './App.css';
 import { RepositoriesTable } from './features/RepositoriesTable';
-import { ApiCallParameters } from './context/ApiCallParameters';
+import { SinceContext } from './context/SinceContext';
+import { LanguageContext } from './context/LanguageContext';
 
 const App = () => {
   const [repositories, setRepositories] = useState([]);
   const [since, setSince] = useState({});
 
-  const url = 'http://127.0.0.1:8000/repositories';
+  const { language, selectLanguage } = useContext(LanguageContext);
+
+  const url = `http://127.0.0.1:8000/repositories?language=${language}&since=${Object.keys(
+    since,
+  ).toString()}`;
+
   useEffect(() => {
     axios(url).then(res => setRepositories(res.data));
-  }, []);
+  }, [since, language]);
 
   const selectSince = (since: any) => {
     setSince(since);
   };
 
-  console.log('since', since);
+  console.log('language', language);
   return (
-    <ApiCallParameters.Provider
+    <SinceContext.Provider
       value={{
         since,
         selectSince,
       }}
     >
-      <div className="App">
-        <RepositoriesTable repositories={repositories} />
-      </div>
-    </ApiCallParameters.Provider>
+      <LanguageContext.Provider
+        value={{
+          language,
+          selectLanguage,
+        }}
+      >
+        <div className="App">
+          <RepositoriesTable repositories={repositories} />
+        </div>
+      </LanguageContext.Provider>
+    </SinceContext.Provider>
   );
 };
 

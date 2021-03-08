@@ -1,7 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ApiCallParameters } from '../context/ApiCallParameters';
+import React, { useContext } from 'react';
+import { SinceContext } from '../context/SinceContext';
+import { checkIfChecked } from '../utils/helpers';
+
 export const TimeRangeCheckboxes = () => {
-  const { since, selectSince } = useContext(ApiCallParameters);
+  const { since, selectSince } = useContext(SinceContext);
 
   const handleChange = (event: any) => {
     selectSince({
@@ -27,13 +29,6 @@ export const TimeRangeCheckboxes = () => {
     },
   ];
 
-  const checkIfChecked = (name: string) => {
-    const checkedSince = Object.keys(since).toString();
-    if (checkedSince === name) {
-      return true;
-    }
-    return false;
-  };
   return (
     <div>
       <label>Since:</label> <br />
@@ -44,7 +39,7 @@ export const TimeRangeCheckboxes = () => {
             type="checkbox"
             name={item.name}
             onChange={handleChange}
-            checked={checkIfChecked(item.name)}
+            checked={checkIfChecked(item.name, since)}
           />
         </label>
       ))}

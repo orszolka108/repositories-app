@@ -104,3 +104,11 @@ export const setNextSort = (sort: number) => {
 
   return nextSort;
 };
+
+export const checkIfChecked = (name: string, sinceObj: any) => {
+  const checkedSince = Object.keys(sinceObj).toString();
+  if (checkedSince === name) {
+    return true;
+  }
+  return false;
+};
