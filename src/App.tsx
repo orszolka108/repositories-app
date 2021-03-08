@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import styled, { css } from 'styled-components';
 
 import { RepositoriesTable } from './features/RepositoriesTable';
 import { SinceContext } from './context/SinceContext';

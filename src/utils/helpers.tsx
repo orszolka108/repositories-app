@@ -54,20 +54,6 @@ export const formatLanguagesOptions = (
   return languagesWithAllOption;
 };
 
-export const getLanguagesOptions = (repositories: Repository[]) => {
-  const languagesOptions = repositories.map(
-    (repository: Repository) => {
-      return {
-        label: repository.language,
-        value: repository.language,
-      };
-    },
-  );
-  const languagesOptionsUnique = removeDuplicates(languagesOptions);
-  const languagesWithAllOption = addAllOption(languagesOptionsUnique);
-  return languagesWithAllOption;
-};
-
 // RepositoriesTable component test covers this fn
 export const displayRepositoriesList = (repositories: Repository[]) =>
   repositories.map((repository: Repository, index: number) => {
@@ -93,25 +79,25 @@ export const getSortingIcon = (order: number) => {
   }
 };
 const sortTypes: any = {
-  0: {
+  1: {
     class: 'sort-up',
     fn: (a: Repository, b: Repository) => a.stars - b.stars,
   },
-  1: {
+  2: {
     class: 'sort-down',
     fn: (a: Repository, b: Repository) => b.stars - a.stars,
   },
-  2: {
-    class: 'sort-down',
+  0: {
+    class: 'sort',
     fn: (a: Repository, b: Repository) => a,
   },
 };
 
 export const sortRepositoriesByStars = (
-  repositories: Repository[],
+  repositories: any,
   sort: number,
 ) => {
-  return repositories.sort(sortTypes[sort].fn);
+  return [...repositories].sort(sortTypes[sort].fn);
 };
 
 export const setNextSort = (sort: number) => {

@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useContext,
-} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled, { css } from 'styled-components';
 
 import {
@@ -15,7 +10,6 @@ import { LanguageDropdown } from './LanguageDropdown';
 import { SortingComponent } from './SortingComponent';
 import { TimeRangeCheckboxes } from './TimeRangeCheckboxes';
 import {
-  getLanguagesOptions,
   displayRepositoriesList,
   filterRepositoriesByLanguage,
   sortRepositoriesByStars,
@@ -71,7 +65,6 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
   const [sort, setSort] = useLocalStorage('sort', 0);
 
   const { language } = useContext(LanguageContext);
-  const initialRender = useRef(true);
   const { repositories, languageOptions } = props;
 
   const selectSort = (sort: any) => {
@@ -95,10 +88,9 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
     );
     setRepositories(filteredRepositories);
   }, [language]);
-
   useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
+    if (sort === 0) {
+      setRepositories(repositories);
     } else {
       const sortedRepositories =
         repositoriesArray &&
