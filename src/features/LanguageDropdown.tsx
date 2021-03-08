@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
 import { DropdownProps, DropdownOption } from '../types';
-import { RepositoriesTableContext } from '../context/RepositoriesTableContext';
+import { LanguageContext } from '../context/LanguageContext';
 
 export const LanguageDropdown = (props: DropdownProps) => {
   const { dropdownOptions } = props;
 
-  const { language, selectLanguage } = useContext(
-    RepositoriesTableContext,
-  );
+  const { language, selectLanguage } = useContext(LanguageContext);
 
   const handleSelect = (
     event: React.ChangeEvent<HTMLSelectElement>,
