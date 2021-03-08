@@ -4,6 +4,8 @@ import React, {
   useRef,
   useContext,
 } from 'react';
+import styled, { css } from 'styled-components';
+
 import {
   RepositoriesListProps,
   DropdownOption,
@@ -22,12 +24,51 @@ import { RepositoriesTableContext } from '../context/RepositoriesTableContext';
 import { LanguageContext } from '../context/LanguageContext';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
+const StyledTable = styled.table`
+  caption-side: top;
+  border: 1px solid black;
+  border-collapse: collapse;
+  caption-side: bottom;
+  table-layout: fixed;
+  width: 600px;
+  td,
+  th {
+    border: none;
+  }
+  td {
+    padding: 5px 10px;
+  }
+
+  tbody tr {
+    text-align: center;
+  }
+  tbody tr {
+    :nth-of-type(odd) {
+      background-color: #efefef;
+    }
+  }
+  thead > tr {
+    background-color: #c2c2c2;
+  }
+  caption {
+    font-size: 0.9em;
+    padding: 5px;
+    font-weight: bold;
+  }
+`;
+const CenteringWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 0;
+`;
+
 export const RepositoriesTable = (props: RepositoriesListProps) => {
   const [options, setOptions] = useState<DropdownOption[]>([]);
   const [repositoriesArray, setRepositories] = useState<
     Repository[] | undefined
   >([]);
-  const [sort, setSort] = useLocalStorage('sort', 2);
+  const [sort, setSort] = useLocalStorage('sort', 0);
 
   const { language } = useContext(LanguageContext);
   const initialRender = useRef(true);
@@ -74,10 +115,12 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
       }}
     >
       <div className="repositories-table">
-        <TimeRangeCheckboxes />
-        <LanguageDropdown dropdownOptions={options} />
-        <SortingComponent />
-        <table>
+        <CenteringWrapper>
+          <TimeRangeCheckboxes />
+          <LanguageDropdown dropdownOptions={options} />
+          <SortingComponent />
+        </CenteringWrapper>
+        <StyledTable>
           <thead>
             <tr>
               <th>Name</th>
@@ -89,7 +132,7 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
             {repositoriesArray &&
               displayRepositoriesList(repositoriesArray)}
           </tbody>
-        </table>
+        </StyledTable>
       </div>
     </RepositoriesTableContext.Provider>
   );

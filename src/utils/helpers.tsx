@@ -1,5 +1,10 @@
 import { Repository, DropdownOption } from '../types';
 import ALL_OPTIONS from '../utils/consts';
+import {
+  faChevronDown,
+  faChevronUp,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // RepositoriesTable fn
 
@@ -79,11 +84,11 @@ export const displayRepositoriesList = (repositories: Repository[]) =>
 
 export const getSortingIcon = (order: number) => {
   switch (order) {
-    case 0:
-      return 'Asc';
     case 1:
-      return 'Desc';
+      return <FontAwesomeIcon icon={faChevronUp} />;
     case 2:
+      return <FontAwesomeIcon icon={faChevronDown} />;
+    case 0:
       return 'Sort';
   }
 };
