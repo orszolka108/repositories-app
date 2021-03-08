@@ -1,4 +1,9 @@
-import { Repository, DropdownOption } from '../types';
+import {
+  Repository,
+  LanguagesResponse,
+  DropdownOption,
+  sinceOptions,
+} from '../types';
 import ALL_OPTIONS from '../utils/consts';
 import {
   faChevronDown,
@@ -11,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export const filterRepositoriesByLanguage = (
   repositories: Repository[],
   language: string | undefined,
-): any => {
+): Repository[] => {
   if (language === ALL_OPTIONS || language === undefined) {
     return repositories;
   }
@@ -40,15 +45,18 @@ export const addAllOption = (options: DropdownOption[]) => {
     ...options,
   ];
 };
+
 export const formatLanguagesOptions = (
-  languagesOptions: DropdownOption[],
+  languagesOptions: LanguagesResponse[],
 ) => {
-  const options = languagesOptions.map((option: any) => {
-    return {
-      label: option.name,
-      value: option.urlParam,
-    };
-  });
+  const options = languagesOptions.map(
+    (option: LanguagesResponse) => {
+      return {
+        label: option.name,
+        value: option.urlParam,
+      };
+    },
+  );
   const languagesOptionsUnique = removeDuplicates(options);
   const languagesWithAllOption = addAllOption(languagesOptionsUnique);
   return languagesWithAllOption;
@@ -94,7 +102,7 @@ const sortTypes: any = {
 };
 
 export const sortRepositoriesByStars = (
-  repositories: any,
+  repositories: Repository[],
   sort: number,
 ) => {
   return [...repositories].sort(sortTypes[sort].fn);
@@ -110,6 +118,7 @@ export const setNextSort = (sort: number) => {
 };
 
 export const checkIfChecked = (name: string, sinceObj: any) => {
+  console.log('sinceObj', sinceObj);
   const checkedSince = Object.keys(sinceObj).toString();
   if (checkedSince === name) {
     return true;

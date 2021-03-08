@@ -23,3 +23,14 @@ export interface DropdownOption {
 export interface DropdownProps {
   dropdownOptions: DropdownOption[];
 }
+
+export interface LanguagesResponse {
+  name: string;
+  urlParam: string;
+}
+
+export const sinceOptions = ['Daily', 'Weekly', 'Monthly'];
+
+export interface SinceOptions {
+  [keyof Array<sinceOptions>]: boolean;
+}

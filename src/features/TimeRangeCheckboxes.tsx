@@ -5,7 +5,9 @@ import { checkIfChecked } from '../utils/helpers';
 export const TimeRangeCheckboxes = () => {
   const { since, selectSince } = useContext(SinceContext);
 
-  const handleChange = (event: any) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     selectSince({
       [event.target.name]: event.target.checked,
     });

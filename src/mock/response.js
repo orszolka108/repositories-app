@@ -141,3 +141,17 @@ export const mockedResponseWithGoLanguage = [
     ],
   },
 ];
+
+export const mockedLanguagesResponse = [
+  { urlParam: '1c-enterprise', name: '1C Enterprise' },
+  { urlParam: 'abap', name: 'ABAP' },
+  { urlParam: 'abnf', name: 'ABNF' },
+  { urlParam: 'actionscript', name: 'ActionScript' },
+];
+
+export const mockedTransformedLanguagesResponse = [
+  { value: '1c-enterprise', label: '1C Enterprise' },
+  { value: 'abap', label: 'ABAP' },
+  { value: 'abnf', label: 'ABNF' },
+  { value: 'actionscript', label: 'ActionScript' },
+];

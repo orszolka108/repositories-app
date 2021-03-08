@@ -31,6 +31,7 @@ const App = () => {
 
   useEffect(() => {
     axios(languagesUrl).then(res => {
+      console.log('rerre', res.data);
       const formattedOptions = formatLanguagesOptions(res.data);
       setLanguagesOptions(formattedOptions);
     });
