@@ -16,7 +16,10 @@ test('renders table with three columns', () => {
   });
   const columns = ['Name', 'Stars', 'Language'];
   const { getByText } = render(
-    <RepositoriesTable repositories={mockedResponse} />,
+    <RepositoriesTable
+      repositories={mockedResponse}
+      languageOptions={[]}
+    />,
   );
   expect(getByText(columns[0])).toBeInTheDocument();
   expect(getByText(columns[1])).toBeInTheDocument();
@@ -25,14 +28,20 @@ test('renders table with three columns', () => {
 
 test('renders table with four rows with records', () => {
   const { getAllByTestId } = render(
-    <RepositoriesTable repositories={mockedResponse} />,
+    <RepositoriesTable
+      repositories={mockedResponse}
+      languageOptions={[]}
+    />,
   );
   expect(getAllByTestId(/repository-row/i)).toHaveLength(4);
 });
 
 test('renders dropdown with language options', () => {
   const { getByTestId } = render(
-    <RepositoriesTable repositories={mockedResponse} />,
+    <RepositoriesTable
+      repositories={mockedResponse}
+      languageOptions={[]}
+    />,
   );
   expect(getByTestId(/language-select/i)).toBeInTheDocument();
 });

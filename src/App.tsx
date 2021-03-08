@@ -5,12 +5,15 @@ import { RepositoriesTable } from './features/RepositoriesTable';
 import { SinceContext } from './context/SinceContext';
 import { LanguageContext } from './context/LanguageContext';
 import { formatLanguagesOptions } from './utils/helpers';
+import { DropdownOption } from './types';
 
 const App = () => {
   const [repositories, setRepositories] = useState([]);
   const [since, setSince] = useState({});
   const [language, setLanguage] = useState('All');
-  const [languagesOptions, setLanguagesOptions] = useState<any>([]);
+  const [languagesOptions, setLanguagesOptions] = useState<
+    DropdownOption[]
+  >([]);
 
   const languageAlias = language === 'All' ? '' : language;
   const formattedSince = Object.keys(since).toString();
