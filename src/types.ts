@@ -22,3 +22,9 @@ export interface DropdownOption {
 export interface DropdownProps {
   dropdownOptions: DropdownOption[];
 }
+
+interface SinceOptions {
+  Daily: string;
+  Weekly: string;
+  Monthly: string;
+}

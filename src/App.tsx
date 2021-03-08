@@ -13,7 +13,7 @@ const App = () => {
     axios(url).then(res => setRepositories(res.data));
   }, []);
 
-  const selectSince = () => {
+  const selectSince = (since: any) => {
     setSince(since);
   };
 
