@@ -31,7 +31,6 @@ export const TimeRangeCheckboxes = () => {
 
   return (
     <div>
-      <label>Since:</label> <br />
       {checkboxes.map((item) => (
         <label key={item.key}>
           {item.name}

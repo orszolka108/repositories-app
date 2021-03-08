@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import './App.css';
+import styled, { css } from 'styled-components';
+
 import { RepositoriesTable } from './features/RepositoriesTable';
 import { SinceContext } from './context/SinceContext';
 import { LanguageContext } from './context/LanguageContext';
@@ -22,7 +23,9 @@ const App = () => {
   const url = `http://127.0.0.1:8000/repositories?language=${languageAlias}&since=${formatSince(
     since,
   )}`;
+
   const languagesUrl = 'http://127.0.0.1:8000/languages';
+
   useEffect(() => {
     axios(url).then(res => setRepositories(res.data));
   }, [since, language]);
