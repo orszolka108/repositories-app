@@ -14,12 +14,20 @@ export const LanguageDropdown = (props: DropdownProps) => {
   };
 
   return (
-    <select data-testid="language-select" onChange={handleSelect}>
+    <select
+      data-testid="language-select"
+      onChange={handleSelect}
+      value={language}
+    >
       {dropdownOptions &&
         dropdownOptions.map(
           (option: DropdownOption, index: number) => {
             return (
-              <option key={`option-${index}`} value={option.value}>
+              <option
+                key={`option-${index}`}
+                value={option.value}
+                // selected={language === option.value}
+              >
                 {option.label}
               </option>
             );
