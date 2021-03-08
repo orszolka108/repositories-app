@@ -35,6 +35,19 @@ export const addAllOption = (options: DropdownOption[]) => {
     ...options,
   ];
 };
+export const formatLanguagesOptions = (
+  languagesOptions: DropdownOption[],
+) => {
+  const options = languagesOptions.map((option: any) => {
+    return {
+      label: option.name,
+      value: option.urlParam,
+    };
+  });
+  const languagesOptionsUnique = removeDuplicates(options);
+  const languagesWithAllOption = addAllOption(languagesOptionsUnique);
+  return languagesWithAllOption;
+};
 
 export const getLanguagesOptions = (repositories: Repository[]) => {
   const languagesOptions = repositories.map(
@@ -90,7 +103,7 @@ const sortTypes: any = {
 };
 
 export const sortRepositoriesByStars = (
-  repositories: any,
+  repositories: Repository[],
   sort: number,
 ) => {
   return repositories.sort(sortTypes[sort].fn);

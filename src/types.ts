@@ -13,6 +13,7 @@ export interface Repository {
 
 export interface RepositoriesListProps {
   repositories: Repository[];
+  languageOptions: DropdownOption[];
 }
 
 export interface DropdownOption {

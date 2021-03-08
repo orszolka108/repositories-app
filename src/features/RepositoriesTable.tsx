@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+} from 'react';
 import {
   RepositoriesListProps,
   DropdownOption,
@@ -18,32 +23,30 @@ import { LanguageContext } from '../context/LanguageContext';
 
 export const RepositoriesTable = (props: RepositoriesListProps) => {
   const [options, setOptions] = useState<DropdownOption[]>([]);
-  const [language, setLanguage] = useState('All');
   const [repositoriesArray, setRepositories] = useState<
     Repository[] | undefined
   >([]);
   const [sort, setSort] = useState<any>(2);
+
+  const { language } = useContext(LanguageContext);
+
   const initialRender = useRef(true);
 
-  const { repositories } = props;
+  const { repositories, languageOptions } = props;
 
   const selectSort = (sort: number) => {
     setSort(sort);
   };
 
-  const selectLanguage = (language: string) => {
-    setLanguage(language);
-  };
   useEffect(() => {
     setRepositories(repositories);
     return () => {};
   }, [repositories]);
 
   useEffect(() => {
-    const languagesOptions = getLanguagesOptions(repositories);
-    setOptions(languagesOptions);
+    setOptions(languageOptions);
     return () => {};
-  }, [repositories]);
+  }, [languageOptions]);
 
   useEffect(() => {
     const filteredRepositories = filterRepositoriesByLanguage(
@@ -57,10 +60,9 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
     if (initialRender.current) {
       initialRender.current = false;
     } else {
-      const sortedRepositories = sortRepositoriesByStars(
-        repositoriesArray,
-        sort,
-      );
+      const sortedRepositories =
+        repositoriesArray &&
+        sortRepositoriesByStars(repositoriesArray, sort);
       setRepositories(sortedRepositories);
     }
   }, [sort]);
@@ -72,31 +74,24 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
         selectSort,
       }}
     >
-      <LanguageContext.Provider
-        value={{
-          language,
-          selectLanguage,
-        }}
-      >
-        <div className="repositories-table">
-          <TimeRangeCheckboxes />
-          <LanguageDropdown dropdownOptions={options} />
-          <SortingComponent />
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Stars</th>
-                <th>Language</th>
-              </tr>
-            </thead>
-            <tbody>
-              {repositoriesArray &&
-                displayRepositoriesList(repositoriesArray)}
-            </tbody>
-          </table>
-        </div>
-      </LanguageContext.Provider>
+      <div className="repositories-table">
+        <TimeRangeCheckboxes />
+        <LanguageDropdown dropdownOptions={options} />
+        <SortingComponent />
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Stars</th>
+              <th>Language</th>
+            </tr>
+          </thead>
+          <tbody>
+            {repositoriesArray &&
+              displayRepositoriesList(repositoriesArray)}
+          </tbody>
+        </table>
+      </div>
     </RepositoriesTableContext.Provider>
   );
 };
