@@ -20,21 +20,20 @@ import {
 } from '../utils/helpers';
 import { RepositoriesTableContext } from '../context/RepositoriesTableContext';
 import { LanguageContext } from '../context/LanguageContext';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const RepositoriesTable = (props: RepositoriesListProps) => {
   const [options, setOptions] = useState<DropdownOption[]>([]);
   const [repositoriesArray, setRepositories] = useState<
     Repository[] | undefined
   >([]);
-  const [sort, setSort] = useState<any>(2);
+  const [sort, setSort] = useLocalStorage('sort', 2);
 
   const { language } = useContext(LanguageContext);
-
   const initialRender = useRef(true);
-
   const { repositories, languageOptions } = props;
 
-  const selectSort = (sort: number) => {
+  const selectSort = (sort: any) => {
     setSort(sort);
   };
 

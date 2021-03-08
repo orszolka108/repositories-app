@@ -6,18 +6,22 @@ import { SinceContext } from './context/SinceContext';
 import { LanguageContext } from './context/LanguageContext';
 import { formatLanguagesOptions } from './utils/helpers';
 import { DropdownOption } from './types';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 const App = () => {
   const [repositories, setRepositories] = useState([]);
-  const [since, setSince] = useState({});
-  const [language, setLanguage] = useState('All');
+  const [since, setSince] = useLocalStorage('since', {});
+  const [language, setLanguage] = useLocalStorage('language', 'All');
+
   const [languagesOptions, setLanguagesOptions] = useState<
     DropdownOption[]
   >([]);
 
   const languageAlias = language === 'All' ? '' : language;
-  const formattedSince = Object.keys(since).toString();
-  const url = `http://127.0.0.1:8000/repositories?language=${languageAlias}&since=${formattedSince}`;
+  const formatSince = (since: any) => Object.keys(since).toString();
+  const url = `http://127.0.0.1:8000/repositories?language=${languageAlias}&since=${formatSince(
+    since,
+  )}`;
   const languagesUrl = 'http://127.0.0.1:8000/languages';
   useEffect(() => {
     axios(url).then(res => setRepositories(res.data));
