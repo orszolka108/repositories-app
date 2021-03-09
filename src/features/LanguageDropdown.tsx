@@ -5,7 +5,6 @@ import { RepositoriesTableContext } from '../context/RepositoriesTableContext';
 
 export const LanguageDropdown = (props: DropdownProps) => {
   const { dropdownOptions } = props;
-  console.log('dropdownOptions', dropdownOptions);
 
   const { language, selectLanguage } = useContext(LanguageContext);
   const { selectSort } = useContext(RepositoriesTableContext);

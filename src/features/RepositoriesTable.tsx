@@ -99,6 +99,13 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
     }
   }, [sort]);
 
+  useEffect(() => {
+    if (localStorage.getItem('sort') !== null) {
+      const sortedRepositories =
+        repositories && sortRepositoriesByStars(repositories, sort);
+      setRepositories(sortedRepositories);
+    }
+  }, [repositories]);
   return (
     <RepositoriesTableContext.Provider
       value={{
