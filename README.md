@@ -1,4 +1,4 @@
-Table with github-trending-api with sorting & filtering option.
+Table with github trending repositories with sorting & filtering option.
 Additionally, you can save your filters for later.
 
 Technology stack:
