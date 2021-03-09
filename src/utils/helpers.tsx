@@ -1,4 +1,10 @@
-import { Repository, DropdownOption } from '../types';
+import {
+  Repository,
+  LanguagesResponse,
+  DropdownOption,
+  SinceOptions,
+  SortingTypes,
+} from '../types';
 import ALL_OPTIONS from '../utils/consts';
 import {
   faChevronDown,
@@ -11,7 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export const filterRepositoriesByLanguage = (
   repositories: Repository[],
   language: string | undefined,
-): any => {
+): Repository[] => {
   if (language === ALL_OPTIONS || language === undefined) {
     return repositories;
   }
@@ -23,7 +29,8 @@ export const removeDuplicates = (options: DropdownOption[]) =>
   options.reduce((unique: DropdownOption[], o: DropdownOption) => {
     if (
       !unique.some(
-        (obj: any) => obj.label === o.label && obj.value === o.value,
+        (obj: DropdownOption) =>
+          obj.label === o.label && obj.value === o.value,
       )
     ) {
       unique.push(o);
@@ -40,30 +47,19 @@ export const addAllOption = (options: DropdownOption[]) => {
     ...options,
   ];
 };
-export const formatLanguagesOptions = (
-  languagesOptions: DropdownOption[],
-) => {
-  const options = languagesOptions.map((option: any) => {
-    return {
-      label: option.name,
-      value: option.urlParam,
-    };
-  });
-  const languagesOptionsUnique = removeDuplicates(options);
-  const languagesWithAllOption = addAllOption(languagesOptionsUnique);
-  return languagesWithAllOption;
-};
 
-export const getLanguagesOptions = (repositories: Repository[]) => {
-  const languagesOptions = repositories.map(
-    (repository: Repository) => {
+export const formatLanguagesOptions = (
+  languagesOptions: LanguagesResponse[],
+) => {
+  const options = languagesOptions.map(
+    (option: LanguagesResponse) => {
       return {
-        label: repository.language,
-        value: repository.language,
+        label: option.name,
+        value: option.urlParam,
       };
     },
   );
-  const languagesOptionsUnique = removeDuplicates(languagesOptions);
+  const languagesOptionsUnique = removeDuplicates(options);
   const languagesWithAllOption = addAllOption(languagesOptionsUnique);
   return languagesWithAllOption;
 };
@@ -92,18 +88,18 @@ export const getSortingIcon = (order: number) => {
       return 'Sort';
   }
 };
-const sortTypes: any = {
-  0: {
+const sortTypes: SortingTypes = {
+  1: {
     class: 'sort-up',
     fn: (a: Repository, b: Repository) => a.stars - b.stars,
   },
-  1: {
+  2: {
     class: 'sort-down',
     fn: (a: Repository, b: Repository) => b.stars - a.stars,
   },
-  2: {
-    class: 'sort-down',
-    fn: (a: Repository, b: Repository) => a,
+  0: {
+    class: 'sort',
+    fn: (a: Repository, b: Repository) => 0,
   },
 };
 
@@ -111,7 +107,7 @@ export const sortRepositoriesByStars = (
   repositories: Repository[],
   sort: number,
 ) => {
-  return repositories.sort(sortTypes[sort].fn);
+  return [...repositories].sort(sortTypes[sort].fn);
 };
 
 export const setNextSort = (sort: number) => {
@@ -122,9 +118,14 @@ export const setNextSort = (sort: number) => {
 
   return nextSort;
 };
+export const formatSince = (since: SinceOptions) =>
+  Object.keys(since).toString();
 
-export const checkIfChecked = (name: string, sinceObj: any) => {
-  const checkedSince = Object.keys(sinceObj).toString();
+export const checkIfChecked = (
+  name: string,
+  sinceObj: SinceOptions,
+) => {
+  const checkedSince = formatSince(sinceObj);
   if (checkedSince === name) {
     return true;
   }

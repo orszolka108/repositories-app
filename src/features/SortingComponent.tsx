@@ -4,7 +4,6 @@ import { getSortingIcon, setNextSort } from '../utils/helpers';
 
 export const SortingComponent = () => {
   const { sort, selectSort } = useContext(RepositoriesTableContext);
-
   const handleClick = () => {
     const nextSort = setNextSort(sort);
     selectSort(nextSort as number);

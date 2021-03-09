@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styled, { css } from 'styled-components';
 
 import { RepositoriesTable } from './features/RepositoriesTable';
 import { SinceContext } from './context/SinceContext';
 import { LanguageContext } from './context/LanguageContext';
-import { formatLanguagesOptions } from './utils/helpers';
-import { DropdownOption } from './types';
+import { formatLanguagesOptions, formatSince } from './utils/helpers';
+import { DropdownOption, SinceOptions } from './types';
 import { useLocalStorage } from './hooks/useLocalStorage';
 
 const App = () => {
@@ -19,7 +18,6 @@ const App = () => {
   >([]);
 
   const languageAlias = language === 'All' ? '' : language;
-  const formatSince = (since: any) => Object.keys(since).toString();
   const url = `http://127.0.0.1:8000/repositories?language=${languageAlias}&since=${formatSince(
     since,
   )}`;
@@ -28,15 +26,15 @@ const App = () => {
 
   useEffect(() => {
     axios(url).then(res => setRepositories(res.data));
-  }, [since, language]);
+  }, [url]);
 
   useEffect(() => {
     axios(languagesUrl).then(res => {
       const formattedOptions = formatLanguagesOptions(res.data);
       setLanguagesOptions(formattedOptions);
     });
-  }, []);
-  const selectSince = (since: any) => {
+  }, [languagesUrl]);
+  const selectSince = (since: SinceOptions) => {
     setSince(since);
   };
 
