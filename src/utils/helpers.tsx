@@ -3,6 +3,7 @@ import {
   LanguagesResponse,
   DropdownOption,
   SinceOptions,
+  SortingTypes,
 } from '../types';
 import ALL_OPTIONS from '../utils/consts';
 import {
@@ -98,7 +99,7 @@ const sortTypes: SortingTypes = {
   },
   0: {
     class: 'sort',
-    fn: (a: Repository, b: Repository) => a,
+    fn: (a: Repository, b: Repository) => 0,
   },
 };
 

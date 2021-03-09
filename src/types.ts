@@ -40,5 +40,5 @@ export interface SortingTypes {
 
 export interface SortingObject {
   class: string;
-  fn: () => Repository;
+  fn: (a: Repository, b: Repository) => number;
 }
