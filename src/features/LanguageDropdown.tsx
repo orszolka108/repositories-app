@@ -5,9 +5,10 @@ import { RepositoriesTableContext } from '../context/RepositoriesTableContext';
 
 export const LanguageDropdown = (props: DropdownProps) => {
   const { dropdownOptions } = props;
+  console.log('dropdownOptions', dropdownOptions);
 
   const { language, selectLanguage } = useContext(LanguageContext);
-  const { sort, selectSort } = useContext(RepositoriesTableContext);
+  const { selectSort } = useContext(RepositoriesTableContext);
 
   const handleSelect = (
     event: React.ChangeEvent<HTMLSelectElement>,
