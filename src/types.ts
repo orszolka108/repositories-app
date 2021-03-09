@@ -29,8 +29,16 @@ export interface LanguagesResponse {
   urlParam: string;
 }
 
-export const sinceOptions = ['Daily', 'Weekly', 'Monthly'];
-
 export interface SinceOptions {
-  [keyof Array<sinceOptions>]: boolean;
+  Weekly?: boolean;
+  Daily?: boolean;
+  Monthly?: boolean;
+}
+export interface SortingTypes {
+  [key: number]: SortingObject;
+}
+
+export interface SortingObject {
+  class: string;
+  fn: () => Repository;
 }

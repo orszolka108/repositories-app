@@ -67,7 +67,7 @@ export const RepositoriesTable = (props: RepositoriesListProps) => {
   const { language } = useContext(LanguageContext);
   const { repositories, languageOptions } = props;
 
-  const selectSort = (sort: any) => {
+  const selectSort = (sort: number) => {
     setSort(sort);
   };
 

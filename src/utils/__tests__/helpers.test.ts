@@ -7,6 +7,7 @@ import {
   sortRepositoriesByStars,
   setNextSort,
   checkIfChecked,
+  formatSince,
 } from '../helpers';
 import {
   mockedResponse,
@@ -221,5 +222,14 @@ describe('checkIfChecked', () => {
   test('returns true when name is matching', () => {
     name = 'Weekly';
     expect(checkIfChecked(name, sinceObj)).toBeTruthy();
+  });
+});
+
+describe('formatSince', () => {
+  const sinceObj = {
+    Weekly: false,
+  };
+  test('returns false when name is not matching', () => {
+    expect(formatSince(sinceObj)).toBe('Weekly');
   });
 });

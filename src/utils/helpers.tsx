@@ -2,7 +2,7 @@ import {
   Repository,
   LanguagesResponse,
   DropdownOption,
-  sinceOptions,
+  SinceOptions,
 } from '../types';
 import ALL_OPTIONS from '../utils/consts';
 import {
@@ -28,7 +28,8 @@ export const removeDuplicates = (options: DropdownOption[]) =>
   options.reduce((unique: DropdownOption[], o: DropdownOption) => {
     if (
       !unique.some(
-        (obj: any) => obj.label === o.label && obj.value === o.value,
+        (obj: DropdownOption) =>
+          obj.label === o.label && obj.value === o.value,
       )
     ) {
       unique.push(o);
@@ -86,7 +87,7 @@ export const getSortingIcon = (order: number) => {
       return 'Sort';
   }
 };
-const sortTypes: any = {
+const sortTypes: SortingTypes = {
   1: {
     class: 'sort-up',
     fn: (a: Repository, b: Repository) => a.stars - b.stars,
@@ -116,10 +117,14 @@ export const setNextSort = (sort: number) => {
 
   return nextSort;
 };
+export const formatSince = (since: SinceOptions) =>
+  Object.keys(since).toString();
 
-export const checkIfChecked = (name: string, sinceObj: any) => {
-  console.log('sinceObj', sinceObj);
-  const checkedSince = Object.keys(sinceObj).toString();
+export const checkIfChecked = (
+  name: string,
+  sinceObj: SinceOptions,
+) => {
+  const checkedSince = formatSince(sinceObj);
   if (checkedSince === name) {
     return true;
   }
