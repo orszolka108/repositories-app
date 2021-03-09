@@ -26,14 +26,14 @@ const App = () => {
 
   useEffect(() => {
     axios(url).then(res => setRepositories(res.data));
-  }, [since, language]);
+  }, [url]);
 
   useEffect(() => {
     axios(languagesUrl).then(res => {
       const formattedOptions = formatLanguagesOptions(res.data);
       setLanguagesOptions(formattedOptions);
     });
-  }, []);
+  }, [languagesUrl]);
   const selectSince = (since: SinceOptions) => {
     setSince(since);
   };

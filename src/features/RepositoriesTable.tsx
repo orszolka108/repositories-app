@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import styled, { css } from 'styled-components';
+import { useState, useEffect, useContext } from 'react';
+import styled from 'styled-components';
 
 import {
   RepositoriesListProps,
